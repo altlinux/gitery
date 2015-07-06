@@ -47,14 +47,12 @@ static cmd_t commands[] = {
 	{"quota", "girar-quota", ""},
 	{"repack", "girar-repack", " <path to git repository> [<value>]"},
 	{"rm-db", "girar-rm-db", " <path to git repository>"},
-	{"task", "girar-task", " {--help|ls|show|new|add|delsub|run|share|approve|rm} ..."},
-	{"build", "girar-build", " [-b <binary_repository_name>] <gear_repo_1> <gear_tag_1> ..."},
-	{"acl", "girar-acl", " {--help|<binary_repository_name> ...}"},
 };
 
 static const char git_receive_pack[] = "git-receive-pack";
 static const char git_upload_pack[] = "git-upload-pack";
-static const char rsync_server[] = "rsync --server";
+// FIXME: only for gyle?
+//static const char rsync_server[] = "rsync --server";
 
 static void
 __attribute__((noreturn))
@@ -170,8 +168,8 @@ shell (char *av[])
 		error(EXIT_FAILURE, errno, "execv: %s", av[0]);
 	}
 
-	if (is_command_match(cmd, rsync_server, sizeof(rsync_server) - 1))
-		exec_rsync(cmd);
+//	if (is_command_match(cmd, rsync_server, sizeof(rsync_server) - 1))
+//		exec_rsync(cmd);
 
 	if (!strncmp(cmd, "git-", 4))
 		cmd += 4;

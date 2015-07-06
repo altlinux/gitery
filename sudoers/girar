@@ -20,8 +20,6 @@ Cmnd_Alias	GIRAR_CMD = \
 	/usr/sbin/girar-del ,\
 	/usr/sbin/girar-disable ,\
 	/usr/sbin/girar-enable, \
-	/usr/sbin/girar-maintainer-add ,\
-	/usr/sbin/girar-maintainer-del
 
 # User privilege specification
 GIRAR_USER ALL = (GIRAR_RUN_AS) NOPASSWD: GIRAR_CMD
