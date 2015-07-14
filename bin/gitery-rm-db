@@ -1,8 +1,8 @@
 #!/bin/sh -efu
 
-. girar-sh-functions
+. gitery-sh-functions
 
-PROG=girar-rm-db
+PROG=gitery-rm-db
 
 usage()
 {

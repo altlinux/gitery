@@ -19,7 +19,7 @@ Requires: git-core >= 0:1.5.1
 # due to "locale -m"
 Requires: glibc-i18ndata
 
-BuildRequires: perl(RPM.pm) perl(Date/Format.pm)
+#BuildRequires: perl(RPM.pm) perl(Date/Format.pm)
 
 %description
 This package contains server engine initially developed for git.alt,
@@ -48,7 +48,7 @@ EOF
 %_sbindir/groupadd -r -f gitery-admin
 for u in cacher; do
 	%_sbindir/groupadd -r -f $u
-	%_sbindir/useradd -r -g $u -G gitery -d /var/empty -s /dev/null -c 'Girar $u robot' -n $u ||:
+	%_sbindir/useradd -r -g $u -G gitery -d /var/empty -s /dev/null -c 'Gitery $u robot' -n $u ||:
 done
 
 %post
@@ -111,7 +111,7 @@ fi
 
 %changelog
 * Wed Nov 21 2012 Dmitry V. Levin <ldv@altlinux.org> 0.5-alt1
-- Imported girar-builder.
+- Imported gitery-builder.
 
 * Fri Nov 16 2012 Dmitry V. Levin <ldv@altlinux.org> 0.4-alt1
 - Imported gb-depot.

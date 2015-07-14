@@ -2,7 +2,7 @@
 
 [ "$project_type" = etc ] || exit 0
 
-. girar-sh-functions
+. gitery-sh-functions
 
 update()
 {
@@ -23,10 +23,10 @@ update()
 
 case "$project_name" in
 	packages)
-		update email subscription "$EMAIL_DIR/$project_name/$GIRAR_USER"
+		update email subscription "$EMAIL_DIR/$project_name/$GITERY_USER"
 		;;
 	public)
-		update email subscription "$EMAIL_DIR/$project_name/$GIRAR_USER"
+		update email subscription "$EMAIL_DIR/$project_name/$GITERY_USER"
 		;;
 esac
-update email distribution "$EMAIL_DIR/$project_name/$GIRAR_USER"
+update email distribution "$EMAIL_DIR/$project_name/$GITERY_USER"

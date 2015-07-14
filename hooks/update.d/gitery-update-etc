@@ -2,7 +2,7 @@
 
 [ "$project_type" = etc ] || exit 0
 
-. girar-sh-functions
+. gitery-sh-functions
 . shell-mail-address
 
 validate_distribution_subscription()
@@ -42,7 +42,7 @@ validate_email_list()
 			continue
 		fi
 		cut -f1 -- "${EMAIL_ALIASES}" |
-			fgrep -xqs "${GIRAR_USER_PREFIX}$a:" ||
+			fgrep -xqs "${GITERY_USER_PREFIX}$a:" ||
 			fatal "$where: invalid email list: user $a not found."
 	done
 }

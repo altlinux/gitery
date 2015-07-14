@@ -1,10 +1,10 @@
 #!/bin/sh
 
-if [ -z "${__included_girar_hooks_sh_functions-}" ]; then
-__included_girar_hooks_sh_functions=1
+if [ -z "${__included_gitery_hooks_sh_functions-}" ]; then
+__included_gitery_hooks_sh_functions=1
 
 . shell-error
-. girar-sh-config
+. gitery-sh-config
 
 # Safety checks
 [ -n "${GIT_DIR-}" ] ||
@@ -13,8 +13,8 @@ __included_girar_hooks_sh_functions=1
 	fatal 'Environment variable PEOPLE_DIR is not set'
 
 git_dir="$(readlink -ev "$GIT_DIR")" || exit 1
-girar_home="$(readlink -ev "$PEOPLE_DIR")" || exit 1
-git_dir="$PEOPLE_DIR${git_dir#$girar_home}"
+gitery_home="$(readlink -ev "$PEOPLE_DIR")" || exit 1
+git_dir="$PEOPLE_DIR${git_dir#$gitery_home}"
 project_name="${git_dir##*/}"
 project_name="${project_name%.git}"
 project_type="${git_dir%/*}"
@@ -66,4 +66,4 @@ run_parts()
 	done
 }
 
-fi #__included_girar_hooks_sh_functions
+fi #__included_gitery_hooks_sh_functions

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -z "${__included_girar_sh_config-}" ]; then
-__included_girar_sh_config=1
+if [ -z "${__included_gitery_sh_config-}" ]; then
+__included_gitery_sh_config=1
 
 ACL_DIR='@ACL_DIR@'
 CMD_DIR='@CMD_DIR@'
@@ -30,9 +30,9 @@ USER_NAME_REGEXP='[a-z][a-z_0-9]+'
 if [ -s "$CONF_DIR/repo/.default" ]; then
 	. "$CONF_DIR/repo/.default"
 fi
-if [ -n "${GIRAR_REPO_NAME-}" -a \
-     -s "$CONF_DIR/repo/${GIRAR_REPO_NAME-}" ]; then
-	. "$CONF_DIR/repo/${GIRAR_REPO_NAME-}"
+if [ -n "${GITERY_REPO_NAME-}" -a \
+     -s "$CONF_DIR/repo/${GITERY_REPO_NAME-}" ]; then
+	. "$CONF_DIR/repo/${GITERY_REPO_NAME-}"
 fi
 
-fi #__included_girar_sh_config
+fi #__included_gitery_sh_config

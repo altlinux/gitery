@@ -3,7 +3,7 @@
 # exports: $PROG
 . shell-error
 
-. "@CMD_DIR@/girar-sh-config"
+. "@CMD_DIR@/gitery-sh-config"
 
 sudo_init()
 {

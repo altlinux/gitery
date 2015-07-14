@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ -z "${__included_girar_sh_functions-}" ]; then
-__included_girar_sh_functions=1
+if [ -z "${__included_gitery_sh_functions-}" ]; then
+__included_gitery_sh_functions=1
 
 [ -z "${PATH##@CMD_DIR@:*}" -o -z "${PATH%%*:@CMD_DIR@}" ] ||
 	PATH="@CMD_DIR@:$PATH"
 
 . shell-error
-. girar-sh-config
+. gitery-sh-config
 
 normalize_gitdir()
 {
@@ -30,7 +30,7 @@ validate_user_gitdir()
 	dir0="$1"; shift
 
 	ndir="$(normalize_gitdir "$dir0")"
-	ndir="${ndir#$PEOPLE_DIR/$GIRAR_USER/}"
+	ndir="${ndir#$PEOPLE_DIR/$GITERY_USER/}"
 	case "${ndir%/*}" in
 		packages|private|public) ;;
 		*) fatal "$dir0: invalid git repository directory name" ;;
@@ -58,7 +58,7 @@ validate_local_exported_gitdir()
 
 	ndir="$(normalize_gitdir "$dir0")"
 	if [ "${ndir#/}" = "$ndir" ]; then
-		ndir="$PEOPLE_DIR/$GIRAR_USER/$ndir"
+		ndir="$PEOPLE_DIR/$GITERY_USER/$ndir"
 	fi
 	[ -f "$ndir/git-daemon-export-ok" ] ||
 		fatal "$dir0: git repository not available"
@@ -93,4 +93,4 @@ valid_repositories()
 	printf %s "$repositories" | tr '\n' ' '
 }
 
-fi #__included_girar_sh_functions
+fi #__included_gitery_sh_functions

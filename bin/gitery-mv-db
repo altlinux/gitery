@@ -1,6 +1,6 @@
 #!/bin/sh -efu
 
-. girar-sh-functions
+. gitery-sh-functions
 
 usage()
 {

@@ -4,7 +4,7 @@ if [ "$ref_style" = remote ]; then
 	exit 0
 fi
 
-. girar-sh-functions
+. gitery-sh-functions
 
 mailto="$(
 	find-subscribers "$project_name" "$ref_style" "$ref_name" |
@@ -63,7 +63,7 @@ show_changes_statistics()
 generate_email_header()
 {
 	DIFF="$tmpdir/diff"
-	from_addr="${GIRAR_USER}@${EMAIL_DOMAIN} ($(getent passwd "$USER" |cut -d: -f5))"
+	from_addr="${GITERY_USER}@${EMAIL_DOMAIN} ($(getent passwd "$USER" |cut -d: -f5))"
 	case "$project_type" in
 		packages)
 			reply_addr="${PACKAGES_EMAIL}"
@@ -220,6 +220,6 @@ send_email()
 		message "email notification about \`$arg_refname' update sent."
 }
 
-. girar-sh-tmpdir
+. gitery-sh-tmpdir
 
 generate_email |send_email

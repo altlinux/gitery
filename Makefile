@@ -9,34 +9,34 @@ sysconfdir = /etc
 sudoers_dir = ${sysconfdir}/sudoers.d
 
 ACL_DIR = ${STATE_DIR}/acl
-CMD_DIR = ${libexecdir}/girar
-CONF_DIR = ${sysconfdir}/girar
+CMD_DIR = ${libexecdir}/gitery
+CONF_DIR = ${sysconfdir}/gitery
 EMAIL_ALIASES = ${CONF_DIR}/aliases
 EMAIL_DIR = ${STATE_DIR}/email
 EMAIL_DOMAIN = altlinux.org
 GEARS_DIR = /gears
 GITWEB_URL = http://git.altlinux.org
-GIT_TEMPLATE_DIR = ${girar_datadir}/templates
-HOOKS_DIR = ${girar_datadir}/hooks
+GIT_TEMPLATE_DIR = ${gitery_datadir}/templates
+HOOKS_DIR = ${gitery_datadir}/hooks
 MAINTAINERS_GROUP = maintainers
 PACKAGES_EMAIL = ALT Devel discussion list <devel@lists.${EMAIL_DOMAIN}>
 CACHE_DIR = ${STATE_DIR}/cache
 UPLOAD_DIR = ${STATE_DIR}/upload
 PEOPLE_DIR = /people
-PLUGIN_DIR = ${libexecdir}/girar
-RUNTIME_DIR = ${runtimedir}/girar
+PLUGIN_DIR = ${libexecdir}/gitery
+RUNTIME_DIR = ${runtimedir}/gitery
 RUN_AS = @RUN_AS@
 SOCKDIR = @SOCKDIR@
 SOCKGRP = @SOCKGRP@
 SRPMS_DIR = /srpms
-STATE_DIR = ${localstatedir}/girar
+STATE_DIR = ${localstatedir}/gitery
 TASKS_DIR = /tasks
 TASKS_GROUP = tasks
-USERS_GROUP = girar-users
+USERS_GROUP = gitery-users
 USER_PREFIX = git_
-girar_datadir = ${datadir}/girar
-girar_lockdir = ${lockdir}/girar
-girar_sbindir = ${sbindir}
+gitery_datadir = ${datadir}/gitery
+gitery_lockdir = ${lockdir}/gitery
+gitery_sbindir = ${sbindir}
 
 WARNINGS = -W -Wall -Waggregate-return -Wcast-align -Wconversion \
 	-Wdisabled-optimization -Wmissing-declarations \
@@ -56,23 +56,23 @@ CFLAGS = -pipe -O2
 
 bin_TARGETS = \
 	bin/find-subscribers \
-	bin/girar-charset \
-	bin/girar-clone \
-	bin/girar-default-branch \
-	bin/girar-find \
-	bin/girar-gen-people-packages-list \
-	bin/girar-get-email-address \
-	bin/girar-hooks-sh-functions \
-	bin/girar-init-db \
-	bin/girar-ls \
-	bin/girar-mv-db \
-	bin/girar-quota \
-	bin/girar-repack \
-	bin/girar-rm-db \
-	bin/girar-sh \
-	bin/girar-sh-config \
-	bin/girar-sh-functions \
-	bin/girar-sh-tmpdir \
+	bin/gitery-charset \
+	bin/gitery-clone \
+	bin/gitery-default-branch \
+	bin/gitery-find \
+	bin/gitery-gen-people-packages-list \
+	bin/gitery-get-email-address \
+	bin/gitery-hooks-sh-functions \
+	bin/gitery-init-db \
+	bin/gitery-ls \
+	bin/gitery-mv-db \
+	bin/gitery-quota \
+	bin/gitery-repack \
+	bin/gitery-rm-db \
+	bin/gitery-sh \
+	bin/gitery-sh-config \
+	bin/gitery-sh-functions \
+	bin/gitery-sh-tmpdir \
 	#
 
 hooks_TARGETS = \
@@ -82,29 +82,29 @@ hooks_TARGETS = \
 	#
 
 hooks_update_TARGETS = \
-	hooks/update.d/girar-update-check-refs \
-	hooks/update.d/girar-update-etc \
+	hooks/update.d/gitery-update-check-refs \
+	hooks/update.d/gitery-update-etc \
 	#
 
 hooks_receive_TARGETS = \
-	hooks/post-receive.d/girar-etc \
-	hooks/post-receive.d/girar-sendmail \
+	hooks/post-receive.d/gitery-etc \
+	hooks/post-receive.d/gitery-sendmail \
 	#
 
 lib_TARGETS = lib/rsync.so
 
 admin_TARGETS = \
-	admin/girar-add \
-	admin/girar-admin-sh-functions \
-	admin/girar-auth-add \
-	admin/girar-auth-zero \
-	admin/girar-del \
-	admin/girar-disable \
-	admin/girar-enable \
-	admin/girar-make-template-repos \
+	admin/gitery-add \
+	admin/gitery-admin-sh-functions \
+	admin/gitery-auth-add \
+	admin/gitery-auth-zero \
+	admin/gitery-del \
+	admin/gitery-disable \
+	admin/gitery-enable \
+	admin/gitery-make-template-repos \
 	#
 
-sudoers_TARGETS = sudoers/girar
+sudoers_TARGETS = sudoers/gitery
 
 TARGETS = \
 	${admin_TARGETS} \
@@ -130,7 +130,7 @@ install-bin: ${bin_TARGETS}
 
 install-data: ${hooks_TARGETS} ${hooks_update_TARGETS} ${hooks_receive_TARGETS}
 	install -d -m750 \
-		${DESTDIR}${girar_datadir} \
+		${DESTDIR}${gitery_datadir} \
 		${DESTDIR}${HOOKS_DIR} \
 		${DESTDIR}${HOOKS_DIR}/update.d \
 		${DESTDIR}${HOOKS_DIR}/post-receive.d \
@@ -146,8 +146,8 @@ install-lib: ${lib_TARGETS}
 	install -pm644 $^ ${DESTDIR}${PLUGIN_DIR}/
 
 install-sbin: ${admin_TARGETS}
-	install -d -m755 ${DESTDIR}${girar_sbindir}
-	install -pm700 $^ ${DESTDIR}${girar_sbindir}/
+	install -d -m755 ${DESTDIR}${gitery_sbindir}
+	install -pm700 $^ ${DESTDIR}${gitery_sbindir}/
 
 install-sudoers: ${sudoers_TARGETS}
 	install -d -m700 ${DESTDIR}${sudoers_dir}
@@ -173,13 +173,13 @@ install-var:
 		${DESTDIR}${TASKS_DIR}/archive \
 		${DESTDIR}${TASKS_DIR}/archive/{.trash,done,eperm,failed,failure,new,postponed,tested} \
 		${DESTDIR}${TASKS_DIR}/index \
-		${DESTDIR}${girar_lockdir} \
-		${DESTDIR}${girar_lockdir}/awaiter \
-		${DESTDIR}${girar_lockdir}/pender \
+		${DESTDIR}${gitery_lockdir} \
+		${DESTDIR}${gitery_lockdir}/awaiter \
+		${DESTDIR}${gitery_lockdir}/pender \
 		${DESTDIR}/people \
 		#
 
-bin/girar-sh: bin/girar-sh.c
+bin/gitery-sh: bin/gitery-sh.c
 
 lib/rsync.so: lib/rsync.c
 	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -fpic -shared -ldl -o $@

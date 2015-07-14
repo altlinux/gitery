@@ -5,7 +5,7 @@ export IFS='
 export PATH=/sbin:/usr/sbin:/bin:/usr/bin
 umask 022
 
-. girar-admin-sh-functions
+. gitery-admin-sh-functions
 
 sudo_init
 
@@ -33,7 +33,7 @@ GECOS="$*"
 [ -n "${GECOS//*:*/}" ] ||
 	fatal "$NAME: invalid GECOS specified"
 
-IT_SHELL="$CMD_DIR/girar-sh"
+IT_SHELL="$CMD_DIR/gitery-sh"
 REAL_HOME="$PEOPLE_DIR/$NAME"
 
 [ -d "$PEOPLE_DIR" ] ||
@@ -43,7 +43,7 @@ AUTH="/etc/openssh/authorized_keys/$IT_NAME"
 [ ! -e "$AUTH" ] ||
 	fatal "error adding $NAME: authorized keys file '$AUTH' already exists"
 
-useradd -c "$GECOS" -d /var/empty -g "$USERS_GROUP" -G 'girar',"$TASKS_GROUP" -M -s "$IT_SHELL" "$IT_NAME" ||
+useradd -c "$GECOS" -d /var/empty -g "$USERS_GROUP" -G 'gitery',"$TASKS_GROUP" -M -s "$IT_SHELL" "$IT_NAME" ||
 	fatal "$IT_NAME: error adding user"
 
 printf '%s:\t%s@%s\n' "$IT_NAME" "$NAME" "$EMAIL_DOMAIN" >>"$EMAIL_ALIASES" &&
@@ -58,24 +58,24 @@ setquota "$IT_NAME" 1000000 1500000 100000 150000 "$PEOPLE_MOUNT" ||
 	message "$IT_NAME: failed to set disk quota on $PEOPLE_MOUNT"
 
 for d in "$REAL_HOME" "$REAL_HOME/packages" "$REAL_HOME/public"; do
-	install -d -o "$IT_NAME" -g girar -m755 "$d" ||
+	install -d -o "$IT_NAME" -g gitery -m755 "$d" ||
 		fatal "$IT_NAME: failed to create $d"
 done
 
 for d in "$REAL_HOME/private"; do
-	install -d -o "$IT_NAME" -g girar-admin -m751 "$d" ||
+	install -d -o "$IT_NAME" -g gitery-admin -m751 "$d" ||
 		fatal "$IT_NAME: failed to create $d"
 done
 
 for d in "$REAL_HOME/etc" "$REAL_HOME/incoming"; do
-	install -d -o "$IT_NAME" -g girar-admin -m750 "$d" ||
+	install -d -o "$IT_NAME" -g gitery-admin -m750 "$d" ||
 		fatal "$IT_NAME: failed to create $d"
 done
 
 for n in packages private public; do
 	email_dir="$EMAIL_DIR/$n"
 	mkdir -p "$email_dir"
-	install -d -o "$IT_NAME" -g girar -m755 "$email_dir/$NAME" ||
+	install -d -o "$IT_NAME" -g gitery -m755 "$email_dir/$NAME" ||
 		fatal "$IT_NAME: failed to create $email_dir/$NAME"
 done
 

@@ -1,7 +1,7 @@
 /*
   Copyright (C) 2006  Dmitry V. Levin <ldv@altlinux.org>
 
-  The girar shell.
+  The gitery shell.
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -37,16 +37,16 @@ typedef struct
 } cmd_t;
 
 static cmd_t commands[] = {
-	{"charset", "girar-charset", " <path to git repository> [<charset>]"},
-	{"clone", "girar-clone", " <path to git repository> [<path to directory>]"},
-	{"default-branch", "girar-default-branch", " <path to git repository> [<branch>]"},
-	{"find-package", "girar-find", " <pattern>"},
-	{"init-db", "girar-init-db", " <path to directory>"},
-	{"ls", "girar-ls", " [<path to directory>]"},
-	{"mv-db", "girar-mv-db", " <path to source directory> <path to destination directory>"},
-	{"quota", "girar-quota", ""},
-	{"repack", "girar-repack", " <path to git repository> [<value>]"},
-	{"rm-db", "girar-rm-db", " <path to git repository>"},
+	{"charset", "gitery-charset", " <path to git repository> [<charset>]"},
+	{"clone", "gitery-clone", " <path to git repository> [<path to directory>]"},
+	{"default-branch", "gitery-default-branch", " <path to git repository> [<branch>]"},
+	{"find-package", "gitery-find", " <pattern>"},
+	{"init-db", "gitery-init-db", " <path to directory>"},
+	{"ls", "gitery-ls", " [<path to directory>]"},
+	{"mv-db", "gitery-mv-db", " <path to source directory> <path to destination directory>"},
+	{"quota", "gitery-quota", ""},
+	{"repack", "gitery-repack", " <path to git repository> [<value>]"},
+	{"rm-db", "gitery-rm-db", " <path to git repository>"},
 };
 
 static const char git_receive_pack[] = "git-receive-pack";
@@ -200,15 +200,15 @@ main (int ac, char *av[])
 	if (!pw)
 		error(EXIT_FAILURE, errno, "getpwuid");
 
-	const char *girar_user = pw->pw_name + sizeof(USER_PREFIX) - 1;
+	const char *gitery_user = pw->pw_name + sizeof(USER_PREFIX) - 1;
 
 	if (strncmp(pw->pw_name, USER_PREFIX, sizeof(USER_PREFIX) - 1) ||
-	    girar_user[0] == '\0')
+	    gitery_user[0] == '\0')
 		error(EXIT_FAILURE, 0, "invalid account name");
 
 	char   *home;
 
-	if (asprintf(&home, "%s/%s", PEOPLE_DIR, girar_user) < 0)
+	if (asprintf(&home, "%s/%s", PEOPLE_DIR, gitery_user) < 0)
 		error(EXIT_FAILURE, errno, "asprintf");
 
 	if (chdir(home) < 0)
@@ -229,15 +229,15 @@ main (int ac, char *av[])
 	    (setenv("SRPMS_DIR", SRPMS_DIR, 1) < 0) ||
 	    (setenv("GEARS_DIR", GEARS_DIR, 1) < 0) ||
 	    (setenv("PEOPLE_DIR", PEOPLE_DIR, 1) < 0) ||
-	    (setenv("GIRAR_USER", girar_user, 1) < 0) ||
-	    (setenv("GIRAR_USER_PREFIX", USER_PREFIX, 1) < 0) ||
+	    (setenv("GITERY_USER", gitery_user, 1) < 0) ||
+	    (setenv("GITERY_USER_PREFIX", USER_PREFIX, 1) < 0) ||
 	    (tmpdir && *tmpdir && setenv("TMPDIR", tmpdir, 1) < 0))
 		error(EXIT_FAILURE, errno, "setenv");
 
 	if (3 == ac)
 	{
-		openlog("girar-sh", LOG_PID, LOG_USER);
-		syslog(LOG_INFO, "%s: %s %s", girar_user, av[1], av[2]);
+		openlog("gitery-sh", LOG_PID, LOG_USER);
+		syslog(LOG_INFO, "%s: %s %s", gitery_user, av[1], av[2]);
 		closelog();
 		shell(av);
 	}

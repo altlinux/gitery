@@ -4,7 +4,7 @@ export IFS='
 '
 export PATH=/sbin:/usr/sbin:/bin:/usr/bin
 
-. girar-admin-sh-functions
+. gitery-admin-sh-functions
 . shell-quote
 
 usage()

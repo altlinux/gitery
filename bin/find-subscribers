@@ -1,12 +1,12 @@
 #!/bin/sh -eu
 
-. girar-sh-functions
+. gitery-sh-functions
 . shell-quote
 . shell-mail-address
 
-# env: GIRAR_USER_PREFIX GIRAR_USER GIT_DIR
-GIRAR_USER_PREFIX=${GIRAR_USER_PREFIX:?}
-GIRAR_USER=${GIRAR_USER:?}
+# env: GITERY_USER_PREFIX GITERY_USER GIT_DIR
+GITERY_USER_PREFIX=${GITERY_USER_PREFIX:?}
+GITERY_USER=${GITERY_USER:?}
 GIT_DIR=${GIT_DIR:?}
 
 # Globals
@@ -36,7 +36,7 @@ translate_email()
 			continue
 		fi
 		quote_sed_regexp_variable a "$a"
-		sed -ne "s/^${GIRAR_USER_PREFIX}$a:[[:space:]]\\+\\([^[:space:]]\\+\\).*/\\1/p" "$git_aliases"
+		sed -ne "s/^${GITERY_USER_PREFIX}$a:[[:space:]]\\+\\([^[:space:]]\\+\\).*/\\1/p" "$git_aliases"
 	done
 }
 
@@ -69,7 +69,7 @@ find_subscribers()
 {
 	local u p t n
 
-	u="$(expand_match "$GIRAR_USER")"
+	u="$(expand_match "$GITERY_USER")"
 	p="$(expand_match "$project_name")"
 	t="$(expand_match "$ref_style")"
 	n="$(expand_match "$ref_name")"
@@ -77,8 +77,8 @@ find_subscribers()
 	grep -ls "^$u[[:space:]]\\+$p[[:space:]]\\+$t[[:space:]]\\+$n[[:space:]]*\$" "$maildir/$project_type"/*/subscription |
 		sed -ne "s|^$maildir/$project_type_quoted/\\([^/]\\+\\)/subscription\$|\\1|p"
 
-	[ ! -f "$maildir/$project_type/$GIRAR_USER/distribution" ] ||
-		sed -ne "s/^$p[[:space:]]\\+$t[[:space:]]\\+$n[[:space:]]\\+//p" "$maildir/$project_type/$GIRAR_USER/distribution" |
+	[ ! -f "$maildir/$project_type/$GITERY_USER/distribution" ] ||
+		sed -ne "s/^$p[[:space:]]\\+$t[[:space:]]\\+$n[[:space:]]\\+//p" "$maildir/$project_type/$GITERY_USER/distribution" |
 		tr -s ',[:space:]' '\n'
 
 	[ ! -r "$GIT_DIR/mailto" ] ||

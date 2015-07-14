@@ -1,8 +1,8 @@
 #!/bin/sh -eu
 
-. girar-hooks-sh-functions
+. gitery-hooks-sh-functions
 
-PROG=girar-update
+PROG=gitery-update
 
 arg_refname="${1-}"
 arg_oldrev="${2-}"

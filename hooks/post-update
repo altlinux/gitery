@@ -5,7 +5,7 @@
 enable -f /usr/lib/bash/lockf lockf
 builtin lockf -v "$GIT_DIR"
 
-case "$(git config girar.repack |tr '[:upper:]' '[:lower:]')" in
+case "$(git config gitery.repack |tr '[:upper:]' '[:lower:]')" in
 	false|no|off) ;;
 	*)
 	echo -n 'Repacking repository... '

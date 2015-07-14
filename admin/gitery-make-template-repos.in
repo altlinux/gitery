@@ -2,7 +2,7 @@
 
 PROG="${0##*/}"
 
-. "@CMD_DIR@/girar-sh-tmpdir"
+. "@CMD_DIR@/gitery-sh-tmpdir"
 cd "$tmpdir"
 
 for dest in packages private public; do

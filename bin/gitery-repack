@@ -1,6 +1,6 @@
 #!/bin/sh -efu
 
-. girar-sh-functions
+. gitery-sh-functions
 
 usage()
 {
@@ -22,7 +22,7 @@ dir="$(validate_user_exported_gitdir "$1")"; shift
 cd "$dir"
 
 if [ "$#" -eq 0 ]; then
-	value="$(GIT_DIR=. git config girar.repack ||:)"
+	value="$(GIT_DIR=. git config gitery.repack ||:)"
 	[ -n "$value" ] ||
 		value=default
 	printf '%s\n' "$value"
@@ -32,9 +32,9 @@ fi
 value="$1"; shift
 case "$value" in
 	default)
-		GIT_DIR=. git config --unset girar.repack ;;
+		GIT_DIR=. git config --unset gitery.repack ;;
 	true|false|on|off)
-		GIT_DIR=. git config girar.repack "$value" ;;
+		GIT_DIR=. git config gitery.repack "$value" ;;
 	run)
 		echo -n 'Repacking repository... '
 		git prune
