@@ -67,7 +67,7 @@ for d in "$REAL_HOME/private"; do
 		fatal "$IT_NAME: failed to create $d"
 done
 
-for d in "$REAL_HOME/etc" "$REAL_HOME/incoming"; do
+for d in "$REAL_HOME/etc"; do
 	install -d -o "$IT_NAME" -g gitery-admin -m750 "$d" ||
 		fatal "$IT_NAME: failed to create $d"
 done

@@ -51,8 +51,6 @@ static cmd_t commands[] = {
 
 static const char git_receive_pack[] = "git-receive-pack";
 static const char git_upload_pack[] = "git-upload-pack";
-// FIXME: only for gyle?
-//static const char rsync_server[] = "rsync --server";
 
 static void
 __attribute__((noreturn))
@@ -102,45 +100,6 @@ exec_cmd(const char *exec, char *str)
 	exit(EXIT_FAILURE);
 }
 
-static void
-__attribute__((noreturn))
-exec_rsync(char *str)
-{
-	const char *args[strlen(str) + 1];
-	unsigned i = 0;
-	char   *p = str;
-
-	while (*p && isblank(*p))
-		++p;
-	while (*p)
-	{
-		args[i++] = p++;
-		while (*p && !isblank(*p))
-			++p;
-		if (!*p)
-			break;
-		*(p++) = '\0';
-		while (isblank(*p))
-			++p;
-	}
-	args[i] = 0;
-
-	const char *old_home = getenv("HOME");
-	char   *home;
-
-	if (asprintf(&home, "%s/incoming", old_home) < 0)
-		error(EXIT_FAILURE, errno, "asprintf");
-	if (chdir(home) < 0)
-		error(EXIT_FAILURE, errno, "chdir");
-	if ((setenv("HOME", home, 1) < 0) ||
-	    (setenv("LD_PRELOAD", PLUGIN_DIR "/rsync.so", 1) < 0))
-		error (EXIT_FAILURE, errno, "setenv");
-
-	execv("/usr/bin/rsync", (char *const *) args);
-	error(EXIT_FAILURE, errno, "execv: %s", args[0]);
-	exit(EXIT_FAILURE);
-}
-
 static int
 is_command_match(const char *sample, const char *cmd, size_t len)
 {
@@ -167,9 +126,6 @@ shell (char *av[])
 		execv("/usr/bin/git-shell", av);
 		error(EXIT_FAILURE, errno, "execv: %s", av[0]);
 	}
-
-//	if (is_command_match(cmd, rsync_server, sizeof(rsync_server) - 1))
-//		exec_rsync(cmd);
 
 	if (!strncmp(cmd, "git-", 4))
 		cmd += 4;

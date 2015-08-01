@@ -91,8 +91,6 @@ hooks_receive_TARGETS = \
 	hooks/post-receive.d/gitery-sendmail \
 	#
 
-lib_TARGETS = lib/rsync.so
-
 admin_TARGETS = \
 	admin/gitery-add \
 	admin/gitery-admin-sh-functions \
@@ -112,7 +110,6 @@ TARGETS = \
 	${hooks_TARGETS} \
 	${hooks_receive_TARGETS} \
 	${hooks_update_TARGETS} \
-	${lib_TARGETS} \
 	${sudoers_TARGETS} \
 	#
 
@@ -140,10 +137,6 @@ install-data: ${hooks_TARGETS} ${hooks_update_TARGETS} ${hooks_receive_TARGETS}
 	install -pm750 ${hooks_update_TARGETS} ${DESTDIR}${HOOKS_DIR}/update.d/
 	install -pm750 ${hooks_receive_TARGETS} ${DESTDIR}${HOOKS_DIR}/post-receive.d/
 	ln -snf ${HOOKS_DIR} ${DESTDIR}${GIT_TEMPLATE_DIR}/hooks
-
-install-lib: ${lib_TARGETS}
-	install -d -m750 ${DESTDIR}${PLUGIN_DIR}
-	install -pm644 $^ ${DESTDIR}${PLUGIN_DIR}/
 
 install-sbin: ${admin_TARGETS}
 	install -d -m755 ${DESTDIR}${gitery_sbindir}
@@ -180,9 +173,6 @@ install-var:
 		#
 
 bin/gitery-sh: bin/gitery-sh.c
-
-lib/rsync.so: lib/rsync.c
-	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -fpic -shared -ldl -o $@
 
 %: %.in
 	sed \
