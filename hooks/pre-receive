@@ -1,9 +1,11 @@
 #!/bin/sh -eu
 
-m=32
+m="$(git config gitery.maxrefs ||:)"
+[ "$m" -gt 0 ] 2>/dev/null || m=32
+
 n=$(wc -l)
 [ "$n" -le "$m" ] ||
-	{
-		echo >&2 "Sorry, TOO MANY REFS ($n) at once could not be accepted, consider using remote clone"
-		exit 1
-	}
+{
+	echo >&2 "Sorry, TOO MANY REFS ($n) at once could not be accepted, consider using remote clone"
+	exit 1
+}
