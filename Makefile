@@ -76,6 +76,7 @@ bin_TARGETS = \
 	#
 
 hooks_TARGETS = \
+	hooks/pre-receive \
 	hooks/post-receive \
 	hooks/post-update \
 	hooks/update \
