@@ -25,13 +25,8 @@ UPLOAD_DIR = ${STATE_DIR}/upload
 PEOPLE_DIR = /people
 PLUGIN_DIR = ${libexecdir}/gitery
 RUNTIME_DIR = ${runtimedir}/gitery
-RUN_AS = @RUN_AS@
-SOCKDIR = @SOCKDIR@
-SOCKGRP = @SOCKGRP@
 SRPMS_DIR = /srpms
 STATE_DIR = ${localstatedir}/gitery
-TASKS_DIR = /tasks
-TASKS_GROUP = tasks
 USERS_GROUP = gitery-users
 USER_PREFIX = git_
 gitery_datadir = ${datadir}/gitery
@@ -49,8 +44,6 @@ CPPFLAGS = -std=gnu99 ${WARNINGS} \
 	-DPEOPLE_DIR=\"${PEOPLE_DIR}\" \
 	-DPLUGIN_DIR=\"${PLUGIN_DIR}\" \
 	-DSRPMS_DIR=\"${SRPMS_DIR}\" \
-	-DSOCKDIR=\"${SOCKDIR}\" \
-	-DRUN_AS=\"${RUN_AS}\" \
 	-DUSER_PREFIX=\"${USER_PREFIX}\"
 CFLAGS = -pipe -O2
 
@@ -163,10 +156,6 @@ install-var:
 		${DESTDIR}${STATE_DIR}/pender \
 		${DESTDIR}${STATE_DIR}/repo \
 		${DESTDIR}${STATE_DIR}/upload/{copy,lockdir,log} \
-		${DESTDIR}${TASKS_DIR} \
-		${DESTDIR}${TASKS_DIR}/archive \
-		${DESTDIR}${TASKS_DIR}/archive/{.trash,done,eperm,failed,failure,new,postponed,tested} \
-		${DESTDIR}${TASKS_DIR}/index \
 		${DESTDIR}${gitery_lockdir} \
 		${DESTDIR}${gitery_lockdir}/awaiter \
 		${DESTDIR}${gitery_lockdir}/pender \
@@ -191,12 +180,9 @@ bin/gitery-sh: bin/gitery-sh.c
 	    -e 's,@CACHE_DIR@,${CACHE_DIR},g' \
 	    -e 's,@PEOPLE_DIR@,${PEOPLE_DIR},g' \
 	    -e 's,@RUNTIME_DIR@,${RUNTIME_DIR},g' \
-	    -e 's,@RUN_AS@,${RUN_AS},g' \
 	    -e 's,@SOCKDIR@,${SOCKDIR},g' \
 	    -e 's,@SRPMS_DIR@,${SRPMS_DIR},g' \
 	    -e 's,@STATE_DIR@,${STATE_DIR},g' \
-	    -e 's,@TASKS_DIR@,${TASKS_DIR},g' \
-	    -e 's,@TASKS_GROUP@,${TASKS_GROUP},g' \
 	    -e 's,@MAINTAINERS_GROUP@,${MAINTAINERS_GROUP},g' \
 	    -e 's,@UPLOAD_DIR@,${UPLOAD_DIR},g' \
 	    -e 's,@USERS_GROUP@,${USERS_GROUP},g' \

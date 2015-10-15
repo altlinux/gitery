@@ -65,32 +65,4 @@ validate_local_exported_gitdir()
 	printf %s "$ndir"
 }
 
-gear_nums()
-{
-	find gears -mindepth 2 -maxdepth 2 -path 'gears/[1-7]*/userid' -type f 2>/dev/null |
-		cut -d/ -f2 |sort -n
-}
-
-check_task_modifiable()
-{
-	local state
-	state=$(cat task/state)
-	case "$state" in
-		AWAITING|EPERM|FAILED|NEW|PENDING|POSTPONED|TESTED)
-			;;
-		BUILDING|COMMITTING)
-			fatal "task #$id is a work in progress" ;;
-		DONE)
-			fatal "task #$id is already successfully processed" ;;
-		*)
-			fatal "task #$id is in unrecognized state \"$state\"" ;;
-	esac
-}
-
-valid_repositories()
-{
-	repositories="$(ls -- "$CONF_DIR/repo/")"
-	printf %s "$repositories" | tr '\n' ' '
-}
-
 fi #__included_gitery_sh_functions
