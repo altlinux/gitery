@@ -4,7 +4,7 @@
 
 usage()
 {
-	echo >&2 "$PROG: $*"
+	[ -z "$*" ] || message "$*"
 	echo >&2 "usage: $PROG <path to git repository> [<charset>]"
 	exit 1
 }
@@ -13,6 +13,8 @@ usage()
 	usage 'Not enough arguments.'
 [ "$#" -le 2 ] ||
 	usage 'Too many arguments.'
+[ "${1-}" != '--help' ] ||
+	usage
 
 cd
 

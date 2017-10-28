@@ -4,11 +4,13 @@
 
 usage()
 {
-	echo >&2 "$PROG: $*"
+	[ -z "$*" ] || message "$*"
 	echo >&2 "usage: $PROG <source-directory> <dest-directory>"
 	exit 1
 }
 
+[ "${1-}" != '--help' ] ||
+	usage
 [ "$#" -ge 2 ] ||
 	usage 'Not enough arguments.'
 [ "$#" -eq 2 ] ||

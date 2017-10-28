@@ -4,7 +4,7 @@
 
 usage()
 {
-	echo >&2 "$PROG: $*"
+	[ -z "$*" ] || message "$*"
 	echo >&2 "usage: $PROG <login>"
 	echo >&2 "   or: $PROG @<group>"
 	exit 1
@@ -14,6 +14,8 @@ usage()
 	usage 'Not enough arguments.'
 [ "$#" -le 1 ] ||
 	usage 'Too many arguments.'
+[ "${1-}" != '--help' ] ||
+	usage
 
 name="$1"; shift
 

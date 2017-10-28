@@ -4,13 +4,15 @@
 
 usage()
 {
-	echo >&2 "$PROG: $*"
+	[ -z "$*" ] || message "$*"
 	echo >&2 "usage: $PROG [<path to directory>]"
 	exit 1
 }
 
 [ "$#" -le 1 ] ||
 	usage 'Too many arguments.'
+[ "${1-}" != '--help' ] ||
+	usage
 
 [ -n "${PEOPLE_DIR:-}" ] ||
 	fatal 'PEOPLE_DIR undefined'
