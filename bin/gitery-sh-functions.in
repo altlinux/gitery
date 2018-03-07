@@ -14,7 +14,7 @@ normalize_gitdir()
 	local name0 name
 	name0="$1"; shift
 
-	[ -n "${name0##/}" -a "$name0" = "${name0%/}" ] ||
+	[ -n "${name0##/}" ] && [ "$name0" = "${name0%/}" ] ||
 		fatal "$name0: invalid git repository directory name"
 	name="${name0%.git}.git"
 	if [ "${name%/*}" = "$name" ]; then

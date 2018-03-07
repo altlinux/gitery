@@ -29,8 +29,8 @@ USER_NAME_REGEXP='[a-z][a-z_0-9]+'
 if [ -s "$CONF_DIR/repo/.default" ]; then
 	. "$CONF_DIR/repo/.default"
 fi
-if [ -n "${GITERY_REPO_NAME-}" -a \
-     -s "$CONF_DIR/repo/${GITERY_REPO_NAME-}" ]; then
+if [ -n "${GITERY_REPO_NAME-}" ] &&
+   [ -s "$CONF_DIR/repo/${GITERY_REPO_NAME-}" ]; then
 	. "$CONF_DIR/repo/${GITERY_REPO_NAME-}"
 fi
 

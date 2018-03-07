@@ -31,7 +31,7 @@ if [ "$#" -eq 0 ]; then
 fi
 
 charset="$1"; shift
-[ -n "$charset" -a -z "$(printf %s "$charset" |tr -d '[[:alnum:][=-=]_.]')" ] ||
+[ -n "$charset" ] && [ -z "$(printf %s "$charset" |tr -d '[[:alnum:][=-=]_.]')" ] ||
 	fatal "$charset: Invalid charset"
 
 cset="$(printf %s "$charset" |tr '[:upper:]' '[:lower:]')"

@@ -19,7 +19,7 @@ usage()
 [ "${1-}" != '--help' ] ||
 	usage
 
-[ -n "$1" -a -n "${1##*/*}" ] &&
+[ -n "$1" ] && [ -n "${1##*/*}" ] &&
 	quote_sed_regexp_variable repo_name "$(printf %s "$1" |tr -s '*')" ||
 	fatal 'invalid pattern'
 
