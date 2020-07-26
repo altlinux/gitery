@@ -1,7 +1,7 @@
 # --no-sisyphus-check-out=fhs
 
 Name: gitery
-Version: 0.5
+Version: 0.7
 Release: alt1
 
 Summary: git.alt server engine
@@ -117,6 +117,9 @@ fi
 %dir %attr(755,root,root) /var/lib/gitery/email/*
 
 %changelog
+* Sun Jul 26 2020 Dmitry V. Levin <ldv@altlinux.org> 0.7-alt1
+- Rewritten admin interface from sudo to sshd forced command.
+
 * Wed Nov 21 2012 Dmitry V. Levin <ldv@altlinux.org> 0.5-alt1
 - Imported gitery-builder.
 
