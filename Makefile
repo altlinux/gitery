@@ -6,8 +6,8 @@ lockdir = /var/lock
 runtimedir = /var/run
 sbindir = /usr/sbin
 sysconfdir = /etc
-sudoers_dir = ${sysconfdir}/sudoers.d
 
+ADMIN_DIR = ${libexecdir}/gitery-admin
 ACL_DIR = ${STATE_DIR}/acl
 CMD_DIR = ${libexecdir}/gitery
 CONF_DIR = ${sysconfdir}/gitery
@@ -86,34 +86,41 @@ hooks_receive_TARGETS = \
 	#
 
 admin_TARGETS = \
-	admin/gitery-add \
+	admin/gitery-admin \
 	admin/gitery-admin-sh-functions \
-	admin/gitery-auth-add \
-	admin/gitery-auth-zero \
-	admin/gitery-del \
-	admin/gitery-disable \
-	admin/gitery-enable \
-	admin/gitery-make-template-repos \
+	admin/gitery-admin--auth-add \
+	admin/gitery-admin--auth-clear \
+	admin/gitery-admin--user-add \
+	admin/gitery-admin--user-del \
+	admin/gitery-admin--user-disable \
+	admin/gitery-admin--user-enable \
 	#
 
-sudoers_TARGETS = sudoers/gitery
+sbin_TARGETS = sbin/gitery-make-template-repos
 
 TARGETS = \
 	${admin_TARGETS} \
+	${sbin_TARGETS} \
 	${bin_TARGETS} \
 	${hooks_TARGETS} \
 	${hooks_receive_TARGETS} \
 	${hooks_update_TARGETS} \
-	${sudoers_TARGETS} \
 	#
 
 .PHONY: all install install-bin install-check install-data \
-	install-lib install-sbin install-sudoers install-var
+	install-lib install-sbin install-var
 
 all: ${TARGETS}
 
-install: install-bin install-check install-data install-lib \
-	install-sbin install-sudoers install-var
+install: \
+	install-admin \
+	install-bin \
+	install-check \
+	install-data \
+	install-lib \
+	install-sbin \
+	install-var \
+	#
 
 install-bin: ${bin_TARGETS}
 	install -d -m750 ${DESTDIR}${CMD_DIR}
@@ -132,13 +139,13 @@ install-data: ${hooks_TARGETS} ${hooks_update_TARGETS} ${hooks_receive_TARGETS}
 	install -pm750 ${hooks_receive_TARGETS} ${DESTDIR}${HOOKS_DIR}/post-receive.d/
 	ln -snf ${HOOKS_DIR} ${DESTDIR}${GIT_TEMPLATE_DIR}/hooks
 
-install-sbin: ${admin_TARGETS}
+install-admin: ${admin_TARGETS}
+	install -d -m700 ${DESTDIR}${ADMIN_DIR}
+	install -pm700 $^ ${DESTDIR}${ADMIN_DIR}/
+
+install-sbin: ${sbin_TARGETS}
 	install -d -m755 ${DESTDIR}${gitery_sbindir}
 	install -pm700 $^ ${DESTDIR}${gitery_sbindir}/
-
-install-sudoers: ${sudoers_TARGETS}
-	install -d -m700 ${DESTDIR}${sudoers_dir}
-	install -pm400 $^ ${DESTDIR}${sudoers_dir}/
 
 install-var:
 	install -d -m750 \
@@ -167,6 +174,7 @@ bin/gitery-sh: bin/gitery-sh.c
 %: %.in
 	sed \
 	    -e 's,@ACL_DIR@,${ACL_DIR},g' \
+	    -e 's,@ADMIN_DIR@,${ADMIN_DIR},g' \
 	    -e 's,@CMD_DIR@,${CMD_DIR},g' \
 	    -e 's,@CONF_DIR@,${CONF_DIR},g' \
 	    -e 's,@EMAIL_ALIASES@,${EMAIL_ALIASES},g' \

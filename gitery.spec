@@ -86,13 +86,20 @@ if [ $1 -eq 1 ]; then
 	crontab -u cacher - <<-'EOF'
 	#20	*	*	*	*	/usr/libexec/gitery/gitery-gen-people-packages-list
 	EOF
+	root_authorized_keys=/root/.ssh/authorized_keys
+	if [ -w "$root_authorized_keys" ]; then
+		cat >> "$root_authorized_keys" <<-'EOF'
+		# gitery-admin users can be registered by adding keys in the following format:
+		#restrict,command="/usr/libexec/gitery-admin/gitery-admin" ssh-keytype ssh-key comment
+		EOF
+	fi
 fi
 
 %files
-%config(noreplace) %attr(400,root,root) /etc/sudoers.d/gitery
 %config(noreplace) /etc/gitery/aliases
 /etc/gitery/
 /usr/libexec/gitery/
+%attr(700,root,root) /usr/libexec/gitery-admin/
 %_datadir/gitery/
 %attr(700,root,root) %_sbindir/*
 
