@@ -6,7 +6,11 @@ enable -f /usr/lib/bash/lockf lockf
 builtin lockf -v "$GIT_DIR"
 
 case "$(git config gitery.repack |tr '[:upper:]' '[:lower:]')" in
-	false|no|off) ;;
+	false|no|off)
+	echo -n 'Updating auxiliary info... '
+	git update-server-info
+	echo done
+	;;
 	*)
 	echo -n 'Repacking repository... '
 	git prune
