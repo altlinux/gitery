@@ -10,9 +10,15 @@ done
 usage()
 {
 	echo "$PROG: $*" >&2
-	echo "usage: $PROG <NAME> <GECOS> < IDENTITY"
+	echo "usage: $PROG [--check] <NAME> <GECOS> < IDENTITY"
 	exit 1
 }
+
+check=
+if [ "${1-}" = '--check' ]; then
+	check=1
+	shift
+fi
 
 set_name "$1"
 shift
@@ -34,6 +40,11 @@ REAL_HOME="$PEOPLE_DIR/$NAME"
 AUTH="/etc/openssh/authorized_keys/$IT_NAME"
 [ ! -e "$AUTH" ] ||
 	fatal "error adding $NAME: authorized keys file '$AUTH' already exists"
+
+if [ -n "$check" ]; then
+	message "$IT_NAME: OK"
+	exit 0
+fi
 
 useradd -c "$GECOS" -d /var/empty -g "$USERS_GROUP" -G 'gitery' -M -s "$IT_SHELL" "$IT_NAME" ||
 	fatal "$IT_NAME: error adding user"
