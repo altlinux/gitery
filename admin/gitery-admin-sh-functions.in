@@ -19,6 +19,8 @@ load_identity()
 			fatal "Invalid identity: unsupported key type: $type" ;;
 		*) fatal "Invalid identity: unrecognized key type" ;;
 	esac
+	[ "$(printf %s "$IDENTITY" |tr -d '[:print:]\n' |wc -c)" = 0 ] ||
+		fatal 'Invalid identity: contains unprintable symbols'
 	[ "$(echo "$IDENTITY" |wc -l)" = 1 ] ||
 		fatal "Invalid identity: too many lines"
 
