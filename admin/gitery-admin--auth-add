@@ -5,9 +5,15 @@
 usage()
 {
 	echo "$PROG: $*" >&2
-	echo "usage: $PROG <NAME> < IDENTITY"
+	echo "usage: $PROG [--check] <NAME> < IDENTITY"
 	exit 1
 }
+
+check=
+if [ "${1-}" = '--check' ]; then
+	check=1
+	shift
+fi
 
 set_name "$1"
 shift
@@ -17,6 +23,11 @@ load_identity
 AUTH="/etc/openssh/authorized_keys/$IT_NAME"
 [ -w "$AUTH" ] ||
 	fatal "error changing $NAME: authorized keys file '$AUTH' doesn't exist"
+
+if [ -n "$check" ]; then
+	message "$IT_NAME: OK"
+	exit 0
+fi
 
 echo "restrict $IDENTITY" >> "$AUTH" ||
 	fatal "error creating authorized keys file '$AUTH' for user $IT_NAME"
