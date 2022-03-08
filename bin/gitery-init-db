@@ -28,4 +28,5 @@ cd "$dir"
 GIT_DIR=. git init --template="$GIT_TEMPLATE_DIR" >/dev/null
 echo "${dir%.git}" >description
 install -m600 -- /dev/null git-daemon-export-ok
+git update-server-info
 printf '%s:\t%s\n' "$PROG" "$PWD"
