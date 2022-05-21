@@ -41,6 +41,10 @@ init_refs()
 		ref_style=remote
 		ref_name="${arg_refname#refs/remotes/}"
 		;;
+	refs/notes/*)
+		ref_style=note
+		ref_name="${arg_refname#refs/notes/}"
+		;;
 	*)
 		fatal "Unrecognized ref name: $arg_refname"
 		;;

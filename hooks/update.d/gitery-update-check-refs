@@ -32,6 +32,13 @@ refs/remotes/*,commit)
 refs/remotes/*,delete)
 	# delete tracking branch
 	;;
+
+refs/notes/*,commit)
+	# update notes
+	;;
+refs/notes/*,delete)
+	# delete notes
+	;;
 *)
 	fatal "Unsupported type of update to ref \`$arg_refname' of type \`$ref_type'"
 	;;

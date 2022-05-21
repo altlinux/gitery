@@ -1,8 +1,8 @@
 #!/bin/sh -efu
 
-if [ "$ref_style" = remote ]; then
-	exit 0
-fi
+case "$ref_style" in
+	remote|note) exit 0 ;;
+esac
 
 . gitery-sh-functions
 

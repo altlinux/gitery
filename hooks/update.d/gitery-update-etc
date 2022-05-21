@@ -21,7 +21,7 @@ validate_distribution_subscription()
 	printf %s "${p%\*}" |grep -Exqse "$PROJECT_NAME_REGEXP" ||
 		fatal "$where: invalid package pattern: $p"
 	case "$t" in
-		\*|head|tag|remote) ;;
+		\*|head|tag|remote|note) ;;
 		*) fatal "$where: invalid reftype pattern: $t" ;;
 	esac
 	[ "$n" = '*' ] ||
