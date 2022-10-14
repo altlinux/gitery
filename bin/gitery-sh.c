@@ -116,6 +116,12 @@ shell (char *av[])
 
 	char *cmd = av[2];
 
+	enum {
+		MAX_ARGS_SIZE = 0x20000 /* ARG_MAX */
+	};
+	if (strlen(cmd) > MAX_ARGS_SIZE)
+		error(EXIT_FAILURE, 0, "command too long");
+
 	if (!strcmp("help", cmd) || !strcmp("--help", cmd))
 		show_help(EXIT_SUCCESS);
 
